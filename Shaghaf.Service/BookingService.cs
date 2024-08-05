@@ -6,6 +6,8 @@ using Shaghaf.Core.Services.Contract;
 using Shaghaf.Core.Specifications.Booking_Spec;
 using Shaghaf.Core;
 using Shaghaf.Core.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 
 public class BookingService : IBookingService
 {
@@ -20,13 +22,30 @@ public class BookingService : IBookingService
         _mapper = mapper;
     }
 
-    public async Task<BookingDto> CreateBookingAsync(BookingDto bookingDto)
+    public async Task<BookingDto?> CreateBookingAsync(BookingDto bookingDto)
     {
-        var booking = _mapper.Map<Booking>(bookingDto);
-        _unitOfWork.Repository<Booking>().Add(booking);
-        await _unitOfWork.CompleteAsync();
-        return _mapper.Map<BookingDto>(booking);
+        try
+        {
+            if (bookingDto is not null)
+            {
+                var booking = _mapper.Map<Booking>(bookingDto);
+                _unitOfWork.Repository<Booking>().Add(booking);
+                await _unitOfWork.CompleteAsync();
+                return _mapper.Map<BookingDto>(booking);
+            }
+            return null;
+        }
+        catch (AutoMapperMappingException ex)
+        {
+            // Log the exception details here if needed
+            Console.WriteLine($" Exception: {ex.Message}");
+            return null; // Return null or a custom DTO indicating the failure
+        }
+
+     
     }
+
+
 
     public async Task UpdateBookingAsync(BookingDto bookingDto)
     {
@@ -63,5 +82,30 @@ public class BookingService : IBookingService
         var spec = new BookWithAdditionalItemsSpecs();
         var bookings = await _unitOfWork.Repository<Booking>().GetAllWithSpecAsync(spec);
         return _mapper.Map<IReadOnlyList<BookingDto>>(bookings);
+    }
+
+    
+
+    public async Task<bool> Delete(int bookingId)
+    {
+        var isDeleted = false;
+
+        var booking =await _unitOfWork.Repository<Booking>().GetByIdAsync(bookingId);
+
+        if (booking is null)
+            return isDeleted;
+
+
+        _unitOfWork.Repository<Booking>().Delete(booking);
+
+        var effectedRows = await _unitOfWork.CompleteAsync();
+
+        if (effectedRows > 0)
+        {
+
+            isDeleted = true;
+
+        }
+        return isDeleted;
     }
 }
