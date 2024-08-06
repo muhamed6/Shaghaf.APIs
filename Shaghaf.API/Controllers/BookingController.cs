@@ -67,7 +67,7 @@ public class BookingController : BaseApiController
     public async Task<IActionResult> DeleteBooking(int id)
     {
         var isDeleted = await _bookingService.Delete(id);
-        return isDeleted ? Ok("Delted") : BadRequest("Invalid Operation");
+        return isDeleted ? Ok("Deleted") : BadRequest("Invalid Operation");
     }
 
    
