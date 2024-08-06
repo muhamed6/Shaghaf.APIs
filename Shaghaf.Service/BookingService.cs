@@ -8,6 +8,7 @@ using Shaghaf.Core;
 using Shaghaf.Core.Entities;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Shaghaf.Core.Entities.HomeEntities;
 
 public class BookingService : IBookingService
 {
@@ -47,29 +48,6 @@ public class BookingService : IBookingService
 
 
 
-    public async Task UpdateBookingAsync(BookingDto bookingDto)
-    {
-        var booking = await _bookingRepository.FindUniqueBookingAsync(
-            bookingDto.RoomId, bookingDto.StartDate, bookingDto.EndDate, bookingDto.CustomerName);
-
-        if (booking == null)
-        {
-            throw new KeyNotFoundException("No booking found matching the specified criteria.");
-        }
-
-        if (Enum.TryParse<BookingStatus>(bookingDto.Status, out var status))
-        {
-            booking.Status = status;
-        }
-        else
-        {
-            throw new ArgumentException("Invalid status value");
-        }
-
-        _bookingRepository.Update(booking);
-        await _unitOfWork.CompleteAsync();
-    }
-
     public async Task<BookingDto?> GetBookingDetailsAsync(int bookingId)
     {
         var spec = new BookWithAdditionalItemsSpecs(bookingId);
@@ -107,5 +85,60 @@ public class BookingService : IBookingService
 
         }
         return isDeleted;
+    }
+
+    public async Task<BookingDto?> UpdateBookingAsync(int bookingId, BookingDto bookingDto)
+    {
+        var booking = await _unitOfWork.Repository<Booking>().GetByIdAsync(bookingId);
+        if (booking is null)
+        {
+            return null;
+        }
+
+
+        if (bookingDto != null)
+        {
+
+            booking.RoomId = bookingDto.RoomId;
+            booking.StartDate = bookingDto.StartDate;
+            booking.EndDate = bookingDto.EndDate;
+            booking.CustomerName = bookingDto.CustomerName;
+            booking.SeatCount = bookingDto.SeatCount;
+            booking.Discount = bookingDto.Discount;
+            booking.Amount = bookingDto.Amount;
+            booking.Currency = bookingDto.Currency;
+            booking.SessionId = bookingDto.SessionId;
+
+            try
+            {
+                booking.Status = (BookingStatus)Enum.Parse(typeof(BookingStatus), bookingDto.Status);
+            }
+            catch (ArgumentException ex)
+            {
+                // Handle the case where the string does not match any enum member 
+                Console.WriteLine($"Invalid status value: {bookingDto.Status}");
+                throw;
+            }
+
+
+
+            _unitOfWork.Repository<Booking>().Update(booking);
+            try
+            {
+
+                await _unitOfWork.CompleteAsync();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"Failed to complete unit of work: {ex.Message}");
+                throw;
+            }
+
+
+            return _mapper.Map<BookingDto>(booking);
+        }
+
+        return null;
     }
 }

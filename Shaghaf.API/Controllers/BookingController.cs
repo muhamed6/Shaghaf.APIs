@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shaghaf.Core.Dtos;
 using Shaghaf.Core.Services.Contract;
+using Shaghaf.Service;
 using Stripe;
 using System;
 using System.Threading.Tasks;
@@ -32,7 +33,24 @@ public class BookingController : BaseApiController
         return Ok(result);
     }
 
-    
+    [HttpPost("bookingId")]
+    public async Task<ActionResult<BookingDto?>> UpdateBooking(int bookingId, [FromBody] BookingDto bookingDto)
+    {
+
+
+
+        var result = await _bookingService.UpdateBookingAsync(bookingId, bookingDto);
+
+        if (result is null)
+        {
+            return BadRequest("Invalid Data !!");
+
+        }
+        return Ok(result);
+    }
+
+
+
     [HttpGet("{bookingId}")]
     public async Task<ActionResult<BookingDto>> GetBookingDetails(int bookingId)
     {
