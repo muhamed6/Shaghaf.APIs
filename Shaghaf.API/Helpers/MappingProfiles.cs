@@ -37,8 +37,8 @@ namespace Shaghaf.Application.Mappings
 
             // Room mappings
             CreateMap<Room, RoomDto>().ReverseMap();
-            CreateMap<RoomToCreateDto, RoomDto>().ReverseMap();
-            CreateMap<RoomToCreateDto, Room>().ReverseMap();
+            CreateMap<RoomToCreateOrUpdateDto, RoomDto>().ReverseMap();
+            CreateMap<RoomToCreateOrUpdateDto, Room>().ReverseMap();
 
             // Booking and BookingDto mappings
             CreateMap<Booking, BookingDto>()

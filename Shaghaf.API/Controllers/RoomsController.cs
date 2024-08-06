@@ -47,7 +47,7 @@ namespace Shaghaf.API.Controllers
 
      
         [HttpPost]
-        public async Task<ActionResult<RoomDto?>> CreateRoom(RoomToCreateDto model)
+        public async Task<ActionResult<RoomDto?>> CreateRoom(RoomToCreateOrUpdateDto model)
         {
             var room = await _roomService.CreateRoomAsync(model);
 
@@ -55,6 +55,29 @@ namespace Shaghaf.API.Controllers
                 return BadRequest("Invalid Create!!");
 
             return Ok(_mapper.Map<Room, RoomDto>(room));
+        }
+
+        [HttpPost("roomId")]
+        public async Task<ActionResult<RoomDto?>> UpdateRoom(int roomId, [FromBody] RoomToCreateOrUpdateDto roomDto)
+        {
+
+
+
+            var result = await _roomService.UpdateRoomAsync(roomId, roomDto);
+
+            if (result is null)
+            {
+                return BadRequest("Invalid Data !!");
+
+            }
+            return Ok(_mapper.Map<RoomDto>(result));
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteRoom(int roomId)
+        {
+            var isDeleted = await _roomService.Delete(roomId);
+            return isDeleted ? Ok("Deleted") : BadRequest("Invalid Operation");
         }
     }
 }

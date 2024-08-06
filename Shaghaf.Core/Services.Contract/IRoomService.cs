@@ -11,8 +11,10 @@ namespace Shaghaf.Core.Services.Contract
 {
     public interface IRoomService
     {
-        Task<Room?> CreateRoomAsync(RoomToCreateDto model);
+        Task<Room?> CreateRoomAsync(RoomToCreateOrUpdateDto model);
         Task<IReadOnlyList<Room>> GetAllRooms();
         Task<Room?> GetRoomById(int roomId);
+        Task<bool> Delete(int roomId);
+        Task<RoomToCreateOrUpdateDto?> UpdateRoomAsync(int roomId, RoomToCreateOrUpdateDto roomDto);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shaghaf.Core.Dtos
 {
-    public class RoomToCreateDto
+    public class RoomToCreateOrUpdateDto
     {
         public decimal Offer { get; set; }
         public decimal Rate { get; set; }
