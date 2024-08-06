@@ -4,10 +4,10 @@ using Shaghaf.Core.Services.Contract;
 using Stripe;
 using System;
 using System.Threading.Tasks;
+using Talabat.APIs.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class BookingController : ControllerBase
+
+public class BookingController : BaseApiController
 {
     private readonly IBookingService _bookingService;
     private readonly IPaymentService _paymentService;
@@ -61,8 +61,8 @@ public class BookingController : ControllerBase
         // Retrieve all booking details asynchronously using the booking service
         var result = await _bookingService.GetAllBookingDetailsAsync();
 
-        if (result is null)
-            return NotFound("Booking Not Found !!");
+        if (result.Count == 0)
+            return NotFound("There is no Booking !!");
 
    
         return Ok(result);

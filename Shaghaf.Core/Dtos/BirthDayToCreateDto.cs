@@ -1,8 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Shaghaf.Core.Dtos
 {
-    public class BirthdayDto
+    public class BirthDayToCreateDto
     {
         [Required]
         public string Name { get; set; }
@@ -14,9 +20,8 @@ namespace Shaghaf.Core.Dtos
         public DateTime Date { get; set; }
         [Required]
         public string Description { get; set; }
-        [Required]
-        public List<CakeDto> Cakes { get; set; }
-        [Required]
-        public List<DecorationDto> Decorations { get; set; }
+
+
+     
     }
 }

@@ -33,6 +33,8 @@ namespace Shaghaf.Application.Mappings
             CreateMap<PhotoSession, PhotoSessionDto>().ReverseMap();
             CreateMap<Location, LocationDto>().ReverseMap();
 
+            CreateMap<Birthday, BirthDayToCreateDto>().ReverseMap();
+
             // Room mappings
             CreateMap<Room, RoomDto>().ReverseMap();
             CreateMap<RoomToCreateDto, RoomDto>().ReverseMap();

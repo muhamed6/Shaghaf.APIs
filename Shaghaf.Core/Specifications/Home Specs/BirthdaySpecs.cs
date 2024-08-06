@@ -15,6 +15,12 @@ namespace Shaghaf.Core.Specifications.Home_Specs
             Includes.Add(B => B.Decorations);
       
         }
+        public BirthdaySpecs(int id) : base(b=> b.Id == id)
+        {
+            Includes.Add(B => B.Cakes);
+            Includes.Add(B => B.Decorations);
+      
+        }
         
     }
 }

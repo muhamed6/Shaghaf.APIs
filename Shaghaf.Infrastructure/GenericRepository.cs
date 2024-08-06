@@ -63,7 +63,10 @@ namespace Shaghaf.Infrastructure.Repositories
        => _context.Set<T>().Add(entity);
 
         public void Update(T entity)
-                => _context.Set<T>().Update(entity);
+        { /*=>_context.Set<T>().Update(entity);*/
+            _context.Set<T>().Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+        }
 
         public void Delete(T entity)
                 => _context.Set<T>().Remove(entity);
