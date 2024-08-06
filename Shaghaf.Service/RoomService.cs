@@ -36,8 +36,7 @@ namespace Shaghaf.Service
                 Location = model.Location,
                 Date = model.Date,
                 Price = model.Price
-                //Plan = model.Plan,
-                //Type = model.Type
+               
             };
             roomRepo.Add(room);
             var result = await _unitOfWork.CompleteAsync();

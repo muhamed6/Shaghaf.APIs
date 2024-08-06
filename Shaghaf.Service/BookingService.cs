@@ -37,9 +37,9 @@ public class BookingService : IBookingService
         }
         catch (AutoMapperMappingException ex)
         {
-            // Log the exception details here if needed
+          
             Console.WriteLine($" Exception: {ex.Message}");
-            return null; // Return null or a custom DTO indicating the failure
+            return null; 
         }
 
      

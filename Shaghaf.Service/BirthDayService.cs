@@ -41,9 +41,9 @@ namespace Shaghaf.Service
             }
             catch (AutoMapperMappingException ex)
             {
-                // Log the exception details here if needed
+              
                 Console.WriteLine($" Exception: {ex.Message}");
-                return null; // Return null or a custom DTO indicating the failure
+                return null; 
             }
         }
 
@@ -83,38 +83,37 @@ namespace Shaghaf.Service
 
         public async Task<BirthDayToCreateDto?> UpdateBirthDayAsync(int id, BirthDayToCreateDto birthdayDto)
         {
-            // Correctly retrieve the Birthday entity
+            
             var birthday = await _unitOfWork.Repository<Birthday>().GetByIdAsync(id);
             if (birthday is null)
             {
                 return null;
             }
             
-            // Directly update the entity's properties
+            
             if (birthdayDto != null)
             {
-                //var birthdayEntity = _mapper.Map<Birthday>(birthdayDto);
+                
                 birthday.Date = birthdayDto.Date;
                 birthday.Description = birthdayDto.Description;
                 birthday.HomeId = birthdayDto.HomeId;
                 birthday.Name = birthdayDto.Name ;
 
-                // No need to map the entity again; just save it
+             
                 _unitOfWork.Repository<Birthday>().Update(birthday);
                 try
                 {
-                    // Attempt to complete the unit of work
+                   
                     await _unitOfWork.CompleteAsync();
                 }
                 catch (Exception ex)
                 {
-                    // Log the exception details
+                  
                     Console.WriteLine($"Failed to complete unit of work: {ex.Message}");
-                    throw; // Rethrow the exception to handle it further up the call stack
+                    throw; 
                 }
 
 
-                // Return the updated entity mapped to BirthDayToCreateDto
                 return _mapper.Map<BirthDayToCreateDto>(birthday);
             }
 

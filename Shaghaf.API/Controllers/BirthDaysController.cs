@@ -55,7 +55,7 @@ namespace Shaghaf.API.Controllers
         [HttpGet("{birthdayId}")]
         public async Task<ActionResult<BirthdayDto>> GetBirthDayDetails(int birthdayId)
         {
-            // Retrieve the booking details asynchronously using the booking service
+      
             var result = await _birthDayService.GetBirthDayDetailsAsync(birthdayId);
 
             if (result is null)
@@ -68,7 +68,6 @@ namespace Shaghaf.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<BirthdayDto>>> GetAllBirthDays()
         {
-            // Retrieve all booking details asynchronously using the booking service
             var result = await _homeService.GetBirthdaysAsync();
 
             if (result.Count==0)

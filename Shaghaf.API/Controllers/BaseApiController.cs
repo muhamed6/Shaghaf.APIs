@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Talabat.APIs.Controllers
 {
-    //This Class is Container to things Common between all Controllers
+
 
     [Route("api/[controller]")]
     [ApiController]

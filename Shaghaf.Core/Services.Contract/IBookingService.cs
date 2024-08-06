@@ -8,7 +8,7 @@ namespace Shaghaf.Core.Services.Contract
     public interface IBookingService
     {
         Task<BookingDto?> CreateBookingAsync(BookingDto bookingDto);
-        Task UpdateBookingAsync(BookingDto bookingDto); // Add this line
+        Task UpdateBookingAsync(BookingDto bookingDto); 
 
         Task<BookingDto?> GetBookingDetailsAsync(int bookingId);
         Task<IReadOnlyList<BookingDto>> GetAllBookingDetailsAsync();

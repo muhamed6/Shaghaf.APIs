@@ -18,28 +18,25 @@ namespace Shaghaf.Infrastructure
 
         private Hashtable _repositories;
 
-        //Ask from Clr For Creating object from dbcontext Implicitly
+        
         public UnitOfWork(StoreContext dbcontext)
         {
             _dbcontext = dbcontext;
 
-            ///When Create object from UnitOfWork at OrderService => execute (new) 
-            ///(new) =>  to repositories with null,
-            ///We Must Initialize to _repositories and Change Value of _repositoriy(Null)       
+            
 
             _repositories = new Hashtable();
         }
 
-        //GenericRepository is class is typically used for common CRUD operations on entities.
-        //Use This method to (Create object of GenericRepository per Request) 
+        
         public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity
         {
-            var Key = typeof(TEntity).Name; //""Order""
+            var Key = typeof(TEntity).Name; 
 
-            //Which if repository first time required   
+           
             if (!_repositories.ContainsKey(Key))
             {
-                //=> (Create object of GenericRepository of specific entity type per Request) 
+                
 
                 var repository = new GenericRepository<TEntity>(_dbcontext);
 

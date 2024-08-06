@@ -16,7 +16,7 @@ namespace Shaghaf.Core.Entities.BookingEntities
         [EnumMember(Value = "Cancelled")]
         Cancelled,
         [EnumMember(Value = "Failed")]
-        Failed // New status added here
+        Failed 
     }
 
 

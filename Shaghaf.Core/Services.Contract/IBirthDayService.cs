@@ -10,7 +10,7 @@ namespace Shaghaf.Core.Services.Contract
     public interface IBirthDayService
     {
         Task<BirthDayToCreateDto?> CreateBirthDayAsync(BirthDayToCreateDto birthdayDto);
-        Task<BirthDayToCreateDto?> UpdateBirthDayAsync(int id, BirthDayToCreateDto birthdayDto); // Add this line
+        Task<BirthDayToCreateDto?> UpdateBirthDayAsync(int id, BirthDayToCreateDto birthdayDto); 
 
         Task<BirthdayDto?> GetBirthDayDetailsAsync(int birthdayId);
 

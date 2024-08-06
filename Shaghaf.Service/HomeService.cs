@@ -11,8 +11,7 @@ namespace Shaghaf.Application.Services
 {
     public class HomeService : IHomeService
     {
-        // add GetAdvertisementsAsync
-
+      
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 

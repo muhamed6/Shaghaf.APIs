@@ -11,10 +11,10 @@ namespace Shaghaf.Infrastructure
 {
     internal static class SpecificationEvaluator<TEntity> where TEntity : BaseEntity
     {
-        public static IQueryable<TEntity> GetQuery(IQueryable<TEntity> inputQuery, ISpecifications<TEntity> spec)// IQueryable 34an l query lma ytnfz ytnfz f sqlserver
+        public static IQueryable<TEntity> GetQuery(IQueryable<TEntity> inputQuery, ISpecifications<TEntity> spec)
         {
-            var query = inputQuery; //_dbcontext.set<Product>()
-            if (spec.Criteria is not null) // P=>P.Id==1 da Criteria
+            var query = inputQuery; 
+            if (spec.Criteria is not null) 
                 query = query.Where(spec.Criteria);
 
             if (spec.OrderBy is not null)

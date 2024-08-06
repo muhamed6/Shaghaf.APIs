@@ -8,7 +8,7 @@ namespace Shaghaf.Core.Entities.HomeEntities
 {
     public class Home:BaseEntity
     {
-        public int LocationId { get; set; } // Foreign key
+        public int LocationId { get; set; } 
         public Location Location { get; set; }
         public string Heading { get; set; }
         public ICollection<Advertisement> Advertisements { get; set; }
