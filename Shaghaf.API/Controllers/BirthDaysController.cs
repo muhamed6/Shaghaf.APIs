@@ -53,7 +53,7 @@ namespace Shaghaf.API.Controllers
 
 
         [HttpGet("{birthdayId}")]
-        public async Task<ActionResult<BirthdayDto>> GetBirthDayDetails(int birthdayId)
+        public async Task<ActionResult<BirthdayDto?>> GetBirthDayDetails(int birthdayId)
         {
       
             var result = await _birthDayService.GetBirthDayDetailsAsync(birthdayId);
