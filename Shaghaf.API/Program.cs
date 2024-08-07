@@ -53,6 +53,7 @@ namespace Shaghaf.API
             builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IBookingRepository, BookingRepository>();
             builder.Services.AddScoped<IHomeService, HomeService>();
+            builder.Services.AddScoped<ICakeService, CakeService>();
             builder.Services.AddScoped<IBirthDayService, BirthDayService>();
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
