@@ -14,7 +14,7 @@ namespace Shaghaf.Core.Dtos
         public string Name { get; set; } = null!;
         public int Seat { get; set; }
         public string Description { get; set; } = null!;
-        public string Location { get; set; } = null!;
+        public int LocationId { get; set; } 
         public DateTime Date { get; set; }
 
         public decimal Price { get; set; }

@@ -24,7 +24,7 @@ namespace Shaghaf.Core.Dtos
        
         public string Description { get; set; } = null!;
       
-        public string Location { get; set; } = null!;
+        public int LocationId { get; set; } 
        
         public DateTime Date { get; set; }
        

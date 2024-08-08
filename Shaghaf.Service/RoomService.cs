@@ -33,28 +33,26 @@ namespace Shaghaf.Service
             _logger = logger;
         }
 
-        public async Task<Room?> CreateRoomAsync(RoomToCreateOrUpdateDto model)
+        public async Task<RoomDto?> CreateRoomAsync(RoomToCreateOrUpdateDto model)
         {
-            var roomRepo = _unitOfWork.Repository<Room>();
-            var room = new Room
+
+            if (model is not null)
             {
-                Offer = model.Offer,
-                Rate  = model.Rate,
-                Name = model.Name,
-                Seat = model.Seat,
-                Description = model.Description,
-                Location = model.Location,
-                Date = model.Date,
-                Price = model.Price
-               
-            };
-            roomRepo.Add(room);
-            var result = await _unitOfWork.CompleteAsync();
-            if (result <= 0) return null;
+                var room = _mapper.Map<Room>(model);
+                _unitOfWork.Repository<Room>().Add(room);
+                try
+                {
 
-            return room;
+                    await _unitOfWork.CompleteAsync();
+                }
+                catch (Exception ex)
+                {
 
-
+                    return null;
+                }
+                return _mapper.Map<RoomDto>(room);
+            }
+            return null;
         }
 
         public async Task<bool> Delete(int roomId)
@@ -104,6 +102,57 @@ namespace Shaghaf.Service
 
         public async Task<RoomToCreateOrUpdateDto?> UpdateRoomAsync(int roomId, RoomToCreateOrUpdateDto roomDto)
         {
+            //var room = await _unitOfWork.Repository<Room>().GetByIdAsync(roomId);
+            //if (room is null)
+            //{
+            //    return null;
+            //}
+
+
+            //if (roomDto != null)
+            //{
+
+            //    room.Date = roomDto.Date;
+            //    room.Name = roomDto.Description;
+            //    room.Offer = roomDto.Offer;
+            //    room.Rate = roomDto.Rate;
+            //    room.Seat = roomDto.Seat;
+            //    room.Description = roomDto.Description;
+            //    room.LocationId = roomDto.LocationId;
+            //    room.Price = roomDto.Price;
+
+            //    try
+            //    {
+            //        room.Plan = (RoomPlan)Enum.Parse(typeof(RoomPlan), roomDto.Plan);
+            //        room.Type = (RoomType)Enum.Parse(typeof(RoomType), roomDto.Type);
+            //    }
+            //    catch (ArgumentException ex)
+            //    {
+            //        _logger.LogError(ex, $"Invalid Plan Or Type value: {roomDto.Plan}, {roomDto.Type}");
+
+            //        return null;
+            //    }
+
+
+
+            //    _unitOfWork.Repository<Room>().Update(room);
+            //    try
+            //    {
+
+            //        await _unitOfWork.CompleteAsync();
+            //    }
+            //    catch (Exception ex)
+            //    {
+
+            //        return null;
+            //    }
+
+
+            //    return _mapper.Map<RoomToCreateOrUpdateDto>(room);
+            //}
+
+            //return null;
+
             var room = await _unitOfWork.Repository<Room>().GetByIdAsync(roomId);
             if (room is null)
             {
@@ -111,7 +160,7 @@ namespace Shaghaf.Service
             }
 
 
-            if (roomDto != null)
+            if (roomDto is not null)
             {
 
                 room.Date = roomDto.Date;
@@ -120,7 +169,7 @@ namespace Shaghaf.Service
                 room.Rate = roomDto.Rate;
                 room.Seat = roomDto.Seat;
                 room.Description = roomDto.Description;
-                room.Location = roomDto.Location;
+                room.LocationId = roomDto.LocationId;
                 room.Price = roomDto.Price;
 
                 try
@@ -130,12 +179,9 @@ namespace Shaghaf.Service
                 }
                 catch (ArgumentException ex)
                 {
-                    _logger.LogError(ex, $"Invalid Plan Or Type value: {roomDto.Plan}, {roomDto.Type}");
 
                     return null;
                 }
-             
-
 
                 _unitOfWork.Repository<Room>().Update(room);
                 try
@@ -145,9 +191,7 @@ namespace Shaghaf.Service
                 }
                 catch (Exception ex)
                 {
-
-                    Console.WriteLine($"Failed to complete unit of work: {ex.Message}");
-                    throw;
+                    return null;
                 }
 
 

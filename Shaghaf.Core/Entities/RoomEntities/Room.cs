@@ -1,5 +1,6 @@
 ﻿
 
+using Shaghaf.Core.Entities.HomeEntities;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shaghaf.Core.Entities.RoomEntities
@@ -12,10 +13,11 @@ namespace Shaghaf.Core.Entities.RoomEntities
         public int Seat { get; set; }
         public string Description { get; set; } = null!;
 
-     
-     //   public ICollection<string> Amenities { get; set; }
 
-        public string Location { get; set; } = null!;
+        //   public ICollection<string> Amenities { get; set; }
+
+        public int LocationId { get; set; }
+        public Location Location { get; set; } 
         public DateTime Date { get; set; }
 
         public decimal Price { get; set; }

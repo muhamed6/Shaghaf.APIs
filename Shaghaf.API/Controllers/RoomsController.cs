@@ -28,6 +28,10 @@ namespace Shaghaf.API.Controllers
         public async Task<ActionResult<IReadOnlyList<RoomDto>>> GetAllRooms()
         {
             var rooms = await _roomService.GetAllRooms();
+            if(rooms.Count <1) 
+            {
+               return NotFound("There is no room!!");
+            }
             return Ok(_mapper.Map<IReadOnlyList<Room>, IReadOnlyList<RoomDto>>(rooms));
         }
 
@@ -47,14 +51,14 @@ namespace Shaghaf.API.Controllers
 
      
         [HttpPost]
-        public async Task<ActionResult<RoomDto?>> CreateRoom(RoomToCreateOrUpdateDto model)
+        public async Task<ActionResult<RoomDto?>> CreateRoom(RoomToCreateOrUpdateDto roomDto)
         {
-            var room = await _roomService.CreateRoomAsync(model);
+            var room = await _roomService.CreateRoomAsync(roomDto);
 
             if (room is null)
                 return BadRequest("Invalid Create!!");
 
-            return Ok(_mapper.Map<Room, RoomDto>(room));
+            return Ok(room);
         }
 
         [HttpPost("roomId")]
@@ -67,7 +71,7 @@ namespace Shaghaf.API.Controllers
 
             if (result is null)
             {
-                return BadRequest("Invalid Data !!");
+                return BadRequest("Invalid Data!!");
 
             }
             return Ok(_mapper.Map<RoomDto>(result));
@@ -77,7 +81,7 @@ namespace Shaghaf.API.Controllers
         public async Task<IActionResult> DeleteRoom(int roomId)
         {
             var isDeleted = await _roomService.Delete(roomId);
-            return isDeleted ? Ok("Deleted") : BadRequest("Invalid Operation");
+            return isDeleted ? Ok("Deleted") : BadRequest("Invalid Operation!");
         }
     }
 }
