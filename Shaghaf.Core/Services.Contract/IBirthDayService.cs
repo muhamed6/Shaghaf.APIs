@@ -13,7 +13,7 @@ namespace Shaghaf.Core.Services.Contract
         Task<BirthDayToCreateDto?> UpdateBirthDayAsync(int id, BirthDayToCreateDto birthdayDto); 
 
         Task<BirthdayDto?> GetBirthDayDetailsAsync(int birthdayId);
-
+        Task<IReadOnlyList<BirthdayDto>> GetAllBirthDaysAsync();
 
         Task<bool> Delete(int bookingId);
     }

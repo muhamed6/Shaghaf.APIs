@@ -70,7 +70,12 @@ namespace Shaghaf.Service
             return isDeleted;
         }
 
-      
+        public async Task<IReadOnlyList<BirthdayDto>> GetAllBirthDaysAsync()
+        {
+            var spec = new BirthdaySpecs();
+            var birthdays = await _unitOfWork.Repository<Birthday>().GetAllWithSpecAsync(spec);
+            return _mapper.Map<IReadOnlyList<BirthdayDto>>(birthdays);
+        }
 
         public async Task<BirthdayDto?> GetBirthDayDetailsAsync(int birthdayId)
         {

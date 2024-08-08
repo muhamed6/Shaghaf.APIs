@@ -11,12 +11,12 @@ namespace Shaghaf.API.Controllers
     public class BirthDaysController : BaseApiController
     {
         private readonly IBirthDayService _birthDayService;
-        //private readonly IHomeService _homeService;
+        
         public BirthDaysController(IBirthDayService birthDayService
-          /*  IHomeService homeService*/)
+         )
         {
             _birthDayService = birthDayService;
-            //_homeService= homeService;
+        
         }
 
 
@@ -65,17 +65,17 @@ namespace Shaghaf.API.Controllers
         }
 
 
-        //[HttpGet]
-        //public async Task<ActionResult<IReadOnlyList<BirthdayDto>>> GetAllBirthDays()
-        //{
-        //    var result = await _homeService.GetBirthdaysAsync();
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyList<BirthdayDto>>> GetAllBirthDays()
+        {
+            var result = await _birthDayService.GetAllBirthDaysAsync();
 
-        //    if (result.Count==0)
-        //        return NotFound("There is no any BirthDay!!");
+            if (result.Count == 0)
+                return NotFound("There is no any BirthDay!!");
 
 
-        //    return Ok(result);
-        //}
+            return Ok(result);
+        }
 
 
 
