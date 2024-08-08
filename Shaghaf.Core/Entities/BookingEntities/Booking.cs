@@ -12,7 +12,7 @@ namespace Shaghaf.Core.Entities
         public DateTime EndDate { get; set; }
         public string CustomerName { get; set; }
         public int SeatCount { get; set; }
-      //  public ICollection<AdditionalItem> AdditionalItems { get; set; } = new List<AdditionalItem>();
+
 
         // Payment-related fields
         public decimal Amount { get; set; }

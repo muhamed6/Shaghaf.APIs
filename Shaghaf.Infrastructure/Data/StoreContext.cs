@@ -22,8 +22,11 @@ namespace Shaghaf.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+
+
         }
-        public DbSet<Home> Homes { get; set; }
+        //public DbSet<Home> Homes { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Membership> Memberships { get; set; }

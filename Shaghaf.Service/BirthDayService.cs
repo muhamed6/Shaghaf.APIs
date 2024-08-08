@@ -96,7 +96,7 @@ namespace Shaghaf.Service
                 
                 birthday.Date = birthdayDto.Date;
                 birthday.Description = birthdayDto.Description;
-                birthday.HomeId = birthdayDto.HomeId;
+                //birthday.HomeId = birthdayDto.HomeId;
                 birthday.Name = birthdayDto.Name ;
 
              

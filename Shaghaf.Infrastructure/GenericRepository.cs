@@ -36,16 +36,7 @@ namespace Shaghaf.Infrastructure.Repositories
 
         public async Task<IReadOnlyList<T>> GetAllWithSpecAsync(ISpecifications<T> spec)
         {
-            if (typeof(T) == typeof(Home))
-            {
-                return (IReadOnlyList<T>)await _context.Set<Home>().Include(H => H.PhotoSessions)
-                .Include(H => H.Categories)
-                .Include(H => H.Advertisements)
-                .Include(H => H.Memberships)
-                .Include(H => H.Location)
-                .Include(P => P.Birthdays).ThenInclude(P => P.Cakes)
-                .Include(P => P.Birthdays).ThenInclude(P => P.Decorations).ToListAsync();
-            }
+
             return await ApplySpecification(spec).ToListAsync();
         }
 

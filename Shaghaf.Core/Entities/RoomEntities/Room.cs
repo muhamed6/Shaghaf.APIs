@@ -14,7 +14,7 @@ namespace Shaghaf.Core.Entities.RoomEntities
         public string Description { get; set; } = null!;
 
 
-        //   public ICollection<string> Amenities { get; set; }
+
 
         public int LocationId { get; set; }
         public Location Location { get; set; } 

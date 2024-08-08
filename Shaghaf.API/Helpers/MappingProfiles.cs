@@ -4,7 +4,7 @@ using Shaghaf.Core.Entities.BookingEntities;
 using Shaghaf.Core.Entities.HomeEntities;
 using Shaghaf.Core.Entities.RoomEntities;
 using Shaghaf.Core.Dtos;
-using Shaghaf.Core.Dtos.Shaghaf.Core.DTOs;
+//using Shaghaf.Core.Dtos.Shaghaf.Core.DTOs;
 using Shaghaf.API.Helpers;
 
 namespace Shaghaf.Application.Mappings
@@ -13,12 +13,7 @@ namespace Shaghaf.Application.Mappings
     {
         public MappingProfile()
         {
-            // Home mappings
-            CreateMap<Home, HomeDto>()
-                .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location))
-                .ForMember(dest => dest.Advertisements, opt => opt.MapFrom(src => src.Advertisements))
-                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.Categories))
-                .ReverseMap();
+
                 
             CreateMap<Advertisement, AdvertisementDto>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom<AdvertisementPictureUrlResolver>());
@@ -44,9 +39,7 @@ namespace Shaghaf.Application.Mappings
             CreateMap<Booking, BookingDto>()
                 .ReverseMap();
 
-            //// AdditionalItem and AdditionalItemDto mappings
-            //CreateMap<AdditionalItem, AdditionalItemDto>()
-            //    .ReverseMap();
+
 
             // If you need to map PaymentDto to Booking, ensure this is correct for your use case
             CreateMap<PaymentDto, Booking>()

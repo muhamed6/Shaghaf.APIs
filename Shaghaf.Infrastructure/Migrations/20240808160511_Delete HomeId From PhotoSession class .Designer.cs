@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shaghaf.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Shaghaf.Infrastructure.Data;
 namespace Shaghaf.Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240808160511_Delete HomeId From PhotoSession class ")]
+    partial class DeleteHomeIdFromPhotoSessionclass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,6 +89,9 @@ namespace Shaghaf.Infrastructure.Migrations
                     b.Property<DateTime>("EventDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("HomeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -98,6 +104,8 @@ namespace Shaghaf.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
 
                     b.ToTable("Advertisements");
                 });
@@ -117,11 +125,16 @@ namespace Shaghaf.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("HomeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
 
                     b.ToTable("Birthdays");
                 });
@@ -162,6 +175,9 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("HomeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -171,6 +187,8 @@ namespace Shaghaf.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
 
                     b.ToTable("Categories");
                 });
@@ -198,6 +216,28 @@ namespace Shaghaf.Infrastructure.Migrations
                     b.HasIndex("BirthdayId");
 
                     b.ToTable("Decorations");
+                });
+
+            modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Home", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Heading")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Homes");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Location", b =>
@@ -237,6 +277,9 @@ namespace Shaghaf.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("HomeId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -245,6 +288,8 @@ namespace Shaghaf.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
 
                     b.ToTable("Memberships");
                 });
@@ -264,10 +309,15 @@ namespace Shaghaf.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("HomeId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
 
                     b.ToTable("PhotoSessions");
                 });
@@ -332,6 +382,28 @@ namespace Shaghaf.Infrastructure.Migrations
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Advertisement", b =>
+                {
+                    b.HasOne("Shaghaf.Core.Entities.HomeEntities.Home", "Home")
+                        .WithMany("Advertisements")
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+                });
+
+            modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Birthday", b =>
+                {
+                    b.HasOne("Shaghaf.Core.Entities.HomeEntities.Home", "Home")
+                        .WithMany("Birthdays")
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+                });
+
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Cake", b =>
                 {
                     b.HasOne("Shaghaf.Core.Entities.HomeEntities.Birthday", "Birthday")
@@ -343,6 +415,17 @@ namespace Shaghaf.Infrastructure.Migrations
                     b.Navigation("Birthday");
                 });
 
+            modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Category", b =>
+                {
+                    b.HasOne("Shaghaf.Core.Entities.HomeEntities.Home", "Home")
+                        .WithMany("Categories")
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+                });
+
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Decoration", b =>
                 {
                     b.HasOne("Shaghaf.Core.Entities.HomeEntities.Birthday", "Birthday")
@@ -352,6 +435,35 @@ namespace Shaghaf.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Birthday");
+                });
+
+            modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Home", b =>
+                {
+                    b.HasOne("Shaghaf.Core.Entities.HomeEntities.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Membership", b =>
+                {
+                    b.HasOne("Shaghaf.Core.Entities.HomeEntities.Home", "Home")
+                        .WithMany("Memberships")
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+                });
+
+            modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.PhotoSession", b =>
+                {
+                    b.HasOne("Shaghaf.Core.Entities.HomeEntities.Home", null)
+                        .WithMany("PhotoSessions")
+                        .HasForeignKey("HomeId");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.RoomEntities.Room", b =>
@@ -370,6 +482,19 @@ namespace Shaghaf.Infrastructure.Migrations
                     b.Navigation("Cakes");
 
                     b.Navigation("Decorations");
+                });
+
+            modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Home", b =>
+                {
+                    b.Navigation("Advertisements");
+
+                    b.Navigation("Birthdays");
+
+                    b.Navigation("Categories");
+
+                    b.Navigation("Memberships");
+
+                    b.Navigation("PhotoSessions");
                 });
 #pragma warning restore 612, 618
         }

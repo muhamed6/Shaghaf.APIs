@@ -52,7 +52,7 @@ namespace Shaghaf.API
             builder.Services.AddScoped<IBookingService, BookingService>();
             builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IBookingRepository, BookingRepository>();
-            builder.Services.AddScoped<IHomeService, HomeService>();
+            //builder.Services.AddScoped<IHomeService, HomeService>();
             builder.Services.AddScoped<ICakeService, CakeService>();
             builder.Services.AddScoped<ILocationService, LocationService>();
             builder.Services.AddScoped<IBirthDayService, BirthDayService>();

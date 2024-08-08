@@ -14,9 +14,6 @@ namespace Shaghaf.Core.Dtos
         public string Name { get; set; }
 
         [Required]
-        public int HomeId { get; set; }
-
-        [Required]
         public DateTime Date { get; set; }
         [Required]
         public string Description { get; set; }
