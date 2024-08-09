@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Shaghaf.Core.Entities.HomeEntities;
 
+
 public class BookingService : IBookingService
 {
     private readonly IBookingRepository _bookingRepository;
@@ -50,16 +51,12 @@ public class BookingService : IBookingService
 
     public async Task<BookingDto?> GetBookingDetailsAsync(int bookingId)
     {
-        //var spec = new BookWithAdditionalItemsSpecs(bookingId);
-        //var booking = await _unitOfWork.Repository<Booking>().GetByIdWithSpecAsync(spec);
         var booking = await _unitOfWork.Repository<Booking>().GetByIdAsync(bookingId);
         return booking == null ? null : _mapper.Map<BookingDto>(booking);
     }
 
     public async Task<IReadOnlyList<BookingDto>> GetAllBookingDetailsAsync()
     {
-        //var spec = new BookWithAdditionalItemsSpecs();
-        //var bookings = await _unitOfWork.Repository<Booking>().GetAllWithSpecAsync(spec);
         var bookings = await _unitOfWork.Repository<Booking>().GetAllAsync();
         return _mapper.Map<IReadOnlyList<BookingDto>>(bookings);
     }

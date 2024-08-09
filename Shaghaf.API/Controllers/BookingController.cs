@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shaghaf.Core.Dtos;
+using Shaghaf.Core.Entities;
 using Shaghaf.Core.Services.Contract;
 using Shaghaf.Service;
 using Stripe;
