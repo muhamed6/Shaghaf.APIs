@@ -28,23 +28,25 @@ namespace Shaghaf.Service
 
         public async Task<BirthDayToCreateDto?> CreateBirthDayAsync(BirthDayToCreateDto birthdayDto)
         {
-            try
-            {
+            
                 if (birthdayDto is not null)
                 {
                     var birthday = _mapper.Map<Birthday>(birthdayDto);
                     _unitOfWork.Repository<Birthday>().Add(birthday);
+                try
+                {
                     await _unitOfWork.CompleteAsync();
+                }
+                catch (Exception ex)
+                {
+
+                    return null;
+                }
                     return _mapper.Map<BirthDayToCreateDto>(birthday);
                 }
                 return null;
-            }
-            catch (AutoMapperMappingException ex)
-            {
-              
-                Console.WriteLine($" Exception: {ex.Message}");
-                return null; 
-            }
+            
+           
         }
 
         public async Task<bool> Delete(int birthdayId)
@@ -86,10 +88,10 @@ namespace Shaghaf.Service
 
 
 
-        public async Task<BirthDayToCreateDto?> UpdateBirthDayAsync(int id, BirthDayToCreateDto birthdayDto)
+        public async Task<BirthDayToCreateDto?> UpdateBirthDayAsync(int birthdayId, BirthDayToCreateDto birthdayDto)
         {
             
-            var birthday = await _unitOfWork.Repository<Birthday>().GetByIdAsync(id);
+            var birthday = await _unitOfWork.Repository<Birthday>().GetByIdAsync(birthdayId);
             if (birthday is null)
             {
                 return null;
@@ -101,7 +103,6 @@ namespace Shaghaf.Service
                 
                 birthday.Date = birthdayDto.Date;
                 birthday.Description = birthdayDto.Description;
-                //birthday.HomeId = birthdayDto.HomeId;
                 birthday.Name = birthdayDto.Name ;
 
              
@@ -113,9 +114,7 @@ namespace Shaghaf.Service
                 }
                 catch (Exception ex)
                 {
-                  
-                    Console.WriteLine($"Failed to complete unit of work: {ex.Message}");
-                    throw; 
+                    return null;
                 }
 
 

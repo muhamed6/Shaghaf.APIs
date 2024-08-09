@@ -19,6 +19,7 @@ namespace Shaghaf.Core.Dtos
         public string Description { get; set; }
 
 
-     
+
+        public int RoomId { get; set; }
     }
 }

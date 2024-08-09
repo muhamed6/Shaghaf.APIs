@@ -13,13 +13,18 @@ namespace Shaghaf.Core.Specifications.Home_Specs
         {
             Includes.Add(B => B.Cakes);
             Includes.Add(B => B.Decorations);
+            Includes.Add(B => B.Room);
+            Includes.Add(B => B.Room.Location);
+            Includes.Add(B => B.Room.PhotoSessions);
       
         }
         public BirthdaySpecs(int id) : base(b=> b.Id == id)
         {
             Includes.Add(B => B.Cakes);
             Includes.Add(B => B.Decorations);
-      
+            Includes.Add(B => B.Room);
+            Includes.Add(B => B.Room.Location);
+            Includes.Add(B => B.Room.PhotoSessions);
         }
         
     }

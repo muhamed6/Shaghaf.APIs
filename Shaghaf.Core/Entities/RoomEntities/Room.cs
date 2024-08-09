@@ -29,6 +29,7 @@ namespace Shaghaf.Core.Entities.RoomEntities
 
 
         public ICollection <PhotoSession> PhotoSessions { get; set; }
+        public ICollection <Birthday> Birthdays { get; set; }
 
     }
 }

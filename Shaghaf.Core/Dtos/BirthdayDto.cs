@@ -16,5 +16,7 @@ namespace Shaghaf.Core.Dtos
         public List<CakeDto> Cakes { get; set; }
         [Required]
         public List<DecorationDto> Decorations { get; set; }
+
+        public int RoomId { get; set; }
     }
 }

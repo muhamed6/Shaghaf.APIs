@@ -28,23 +28,23 @@ namespace Shaghaf.API.Controllers
 
             if (result is null)
             {
-                return BadRequest("Invalid Data !!");
+                return BadRequest("Invalid Data!!");
 
             }
             return Ok(result);
         }
 
          [HttpPost("birthdayId")]
-        public async Task<ActionResult<BirthDayToCreateDto?>> UpdateBirthday(int id, [FromBody] BirthDayToCreateDto birthdayDto)
+        public async Task<ActionResult<BirthDayToCreateDto?>> UpdateBirthday(int birthdayId, [FromBody] BirthDayToCreateDto birthdayDto)
         {
   
           
 
-            var result = await _birthDayService.UpdateBirthDayAsync(id, birthdayDto);
+            var result = await _birthDayService.UpdateBirthDayAsync(birthdayId, birthdayDto);
 
             if (result is null)
             {
-                return BadRequest("Invalid Data !!");
+                return BadRequest("Invalid Data!!");
 
             }
             return Ok(result);
@@ -59,7 +59,7 @@ namespace Shaghaf.API.Controllers
             var result = await _birthDayService.GetBirthDayDetailsAsync(birthdayId);
 
             if (result is null)
-                return NotFound("Birthday Not Found !!");
+                return NotFound("Birthday Not Found!!");
 
             return Ok(result);
         }
@@ -80,10 +80,10 @@ namespace Shaghaf.API.Controllers
 
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteBirthDay(int id)
+        public async Task<IActionResult> DeleteBirthDay(int birthdayId)
         {
-            var isDeleted = await _birthDayService.Delete(id);
-            return isDeleted ? Ok("Delted") : BadRequest("Invalid Operation");
+            var isDeleted = await _birthDayService.Delete(birthdayId);
+            return isDeleted ? Ok("Deleted") : BadRequest("Invalid Operation!");
         }
     }
 }

@@ -11,11 +11,11 @@ namespace Shaghaf.Core.Services.Contract
     public interface IBirthDayService
     {
         Task<BirthDayToCreateDto?> CreateBirthDayAsync(BirthDayToCreateDto birthdayDto);
-        Task<BirthDayToCreateDto?> UpdateBirthDayAsync(int id, BirthDayToCreateDto birthdayDto); 
+        Task<BirthDayToCreateDto?> UpdateBirthDayAsync(int birthdayId, BirthDayToCreateDto birthdayDto); 
 
         Task<Birthday?> GetBirthDayDetailsAsync(int birthdayId);
         Task<IReadOnlyList<Birthday>> GetAllBirthDaysAsync();
 
-        Task<bool> Delete(int bookingId);
+        Task<bool> Delete(int birthdayId);
     }
 }
