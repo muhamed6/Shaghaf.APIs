@@ -27,5 +27,8 @@ namespace Shaghaf.Core.Entities.RoomEntities
 
         public RoomType Type { get; set; } = RoomType.FunnyRoom; // default is funny
 
+
+        public ICollection <PhotoSession> PhotoSessions { get; set; }
+
     }
 }

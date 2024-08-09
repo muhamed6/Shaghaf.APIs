@@ -41,6 +41,9 @@ namespace Shaghaf.Application.Mappings
 
 
 
+            CreateMap<PhotoSession, PhotoSessionDto>().ReverseMap();
+
+
             // If you need to map PaymentDto to Booking, ensure this is correct for your use case
             CreateMap<PaymentDto, Booking>()
                 .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Amount))
