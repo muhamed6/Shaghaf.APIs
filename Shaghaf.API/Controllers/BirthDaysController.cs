@@ -53,7 +53,7 @@ namespace Shaghaf.API.Controllers
 
 
         [HttpGet("{birthdayId}")]
-        public async Task<ActionResult<BirthdayDto?>> GetBirthDayDetails(int birthdayId)
+        public async Task<ActionResult<Birthday?>> GetBirthDayDetails(int birthdayId)
         {
       
             var result = await _birthDayService.GetBirthDayDetailsAsync(birthdayId);
@@ -66,7 +66,7 @@ namespace Shaghaf.API.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<BirthdayDto>>> GetAllBirthDays()
+        public async Task<ActionResult<IReadOnlyList<Birthday>>> GetAllBirthDays()
         {
             var result = await _birthDayService.GetAllBirthDaysAsync();
 
