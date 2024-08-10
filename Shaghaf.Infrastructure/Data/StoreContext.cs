@@ -23,7 +23,7 @@ namespace Shaghaf.Infrastructure.Data
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-
+            modelBuilder.Entity<RoomCategory>().HasKey(x => new {x.CategoryId, x.RoomId});
 
         }
         //public DbSet<Home> Homes { get; set; }

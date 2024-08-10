@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shaghaf.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Shaghaf.Infrastructure.Data;
 namespace Shaghaf.Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240809154512_Add Room and Category RelationShip")]
+    partial class AddRoomandCategoryRelationShip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +71,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Advertisement", b =>
@@ -99,7 +102,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Advertisements", (string)null);
+                    b.ToTable("Advertisements");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Birthday", b =>
@@ -128,7 +131,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Birthdays", (string)null);
+                    b.ToTable("Birthdays");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Cake", b =>
@@ -156,7 +159,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasIndex("BirthdayId");
 
-                    b.ToTable("Cakes", (string)null);
+                    b.ToTable("Cakes");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Category", b =>
@@ -177,7 +180,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Decoration", b =>
@@ -202,7 +205,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasIndex("BirthdayId");
 
-                    b.ToTable("Decorations", (string)null);
+                    b.ToTable("Decorations");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Location", b =>
@@ -227,7 +230,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations", (string)null);
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.Membership", b =>
@@ -251,7 +254,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Memberships", (string)null);
+                    b.ToTable("Memberships");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.HomeEntities.PhotoSession", b =>
@@ -279,7 +282,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("PhotoSessions", (string)null);
+                    b.ToTable("PhotoSessions");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.RoomCategory", b =>
@@ -294,7 +297,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("RoomCategory", (string)null);
+                    b.ToTable("RoomCategory");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.RoomEntities.Room", b =>
@@ -343,7 +346,7 @@ namespace Shaghaf.Infrastructure.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Rooms", (string)null);
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("Shaghaf.Core.Entities.Booking", b =>

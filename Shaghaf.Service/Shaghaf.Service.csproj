@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shaghaf.Core\Shaghaf.Core.csproj" />
+    <ProjectReference Include="..\Shaghaf.Infrastructure\Shaghaf.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

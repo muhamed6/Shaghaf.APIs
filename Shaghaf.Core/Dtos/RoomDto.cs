@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shaghaf.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,5 +31,8 @@ namespace Shaghaf.Core.Dtos
        
 
         public decimal Price { get; set; }
+
+
+        public ICollection<RoomCategory> RoomCategories { get; set; } = new List<RoomCategory>();
     }
 }

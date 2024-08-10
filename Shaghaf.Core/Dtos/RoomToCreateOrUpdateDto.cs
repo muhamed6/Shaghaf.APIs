@@ -22,5 +22,7 @@ namespace Shaghaf.Core.Dtos
         public string Type { get; set; }
 
         public string Plan { get; set; }
+
+        public List<int> SelectedCategories { get; set; } = default!;
     }
 }

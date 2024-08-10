@@ -16,7 +16,8 @@ namespace Shaghaf.Core.Specifications.Home_Specs
             Includes.Add(B => B.Room);
             Includes.Add(B => B.Room.Location);
             Includes.Add(B => B.Room.PhotoSessions);
-      
+            Includes.Add(B => B.Room.RoomCategories);
+
         }
         public BirthdaySpecs(int id) : base(b=> b.Id == id)
         {
@@ -25,6 +26,7 @@ namespace Shaghaf.Core.Specifications.Home_Specs
             Includes.Add(B => B.Room);
             Includes.Add(B => B.Room.Location);
             Includes.Add(B => B.Room.PhotoSessions);
+            Includes.Add(B => B.Room.RoomCategories);
         }
         
     }

@@ -31,5 +31,8 @@ namespace Shaghaf.Core.Entities.RoomEntities
         public ICollection <PhotoSession> PhotoSessions { get; set; }
         public ICollection <Birthday> Birthdays { get; set; }
 
+
+        public ICollection<RoomCategory> RoomCategories { get; set; } = new List<RoomCategory>();
+
     }
 }
