@@ -7,7 +7,7 @@
         public string Name { get; set; }
         public string ImageUrl { get; set; }
 
-        public ICollection<RoomCategory> RoomCategories { get; set; }
+        public ICollection<RoomCategory> RoomCategories { get; set; } = new List<RoomCategory>();
 
     }
 }

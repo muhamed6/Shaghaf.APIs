@@ -4,7 +4,7 @@ using Shaghaf.Core.Entities.HomeEntities;
 
 namespace Shaghaf.API.Helpers
 {
-    public class CategoryPictureUrlResolver : IValueResolver<Category, CategoryDto, string>
+    public class CategoryPictureUrlResolver : IValueResolver<Category, CategoryToReturnDto, string>
     {
         private readonly IConfiguration _configuration;
 
@@ -12,7 +12,7 @@ namespace Shaghaf.API.Helpers
         {
             _configuration = configuration;
         }
-        public string Resolve(Category source, CategoryDto destination, string destMember, ResolutionContext context)
+        public string Resolve(Category source, CategoryToReturnDto destination, string destMember, ResolutionContext context)
         {
             if (!string.IsNullOrEmpty(source.ImageUrl))
 

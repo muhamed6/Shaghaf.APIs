@@ -17,9 +17,11 @@ namespace Shaghaf.Application.Mappings
                 
             CreateMap<Advertisement, AdvertisementDto>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom<AdvertisementPictureUrlResolver>());
-                
-            CreateMap<Category, CategoryDto>()
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom<CategoryPictureUrlResolver>());
+
+            CreateMap<Category, CategoryDto>().ReverseMap();
+
+            CreateMap<Category, CategoryToReturnDto>()
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom<CategoryPictureUrlResolver>()).ReverseMap();
                 
             CreateMap<Membership, MembershipDto>().ReverseMap();
             CreateMap<Birthday, BirthdayDto>().ReverseMap();
