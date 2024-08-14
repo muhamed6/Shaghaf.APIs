@@ -4,7 +4,6 @@ using Shaghaf.Core.Entities.BookingEntities;
 using Shaghaf.Core.Entities.HomeEntities;
 using Shaghaf.Core.Entities.RoomEntities;
 using Shaghaf.Core.Dtos;
-//using Shaghaf.Core.Dtos.Shaghaf.Core.DTOs;
 using Shaghaf.API.Helpers;
 
 namespace Shaghaf.Application.Mappings
@@ -15,15 +14,13 @@ namespace Shaghaf.Application.Mappings
         {
 
                 
-            CreateMap<Advertisement, AdvertisementDto>()
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom<AdvertisementPictureUrlResolver>());
+
 
             CreateMap<Category, CategoryDto>().ReverseMap();
 
             CreateMap<Category, CategoryToReturnDto>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom<CategoryPictureUrlResolver>()).ReverseMap();
                 
-            CreateMap<Membership, MembershipDto>().ReverseMap();
             CreateMap<Birthday, BirthdayDto>().ReverseMap();
             CreateMap<Cake, CakeDto>().ReverseMap();
             CreateMap<Decoration, DecorationDto>().ReverseMap();

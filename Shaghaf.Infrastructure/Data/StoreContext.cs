@@ -26,10 +26,7 @@ namespace Shaghaf.Infrastructure.Data
             modelBuilder.Entity<RoomCategory>().HasKey(x => new {x.CategoryId, x.RoomId});
 
         }
-        //public DbSet<Home> Homes { get; set; }
-        public DbSet<Advertisement> Advertisements { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Membership> Memberships { get; set; }
         public DbSet<Birthday> Birthdays { get; set; }
         public DbSet<Cake> Cakes { get; set; }
         public DbSet<Decoration> Decorations { get; set; }
@@ -37,6 +34,5 @@ namespace Shaghaf.Infrastructure.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        //public DbSet<AdditionalItem> AdditionalItems { get; set; }
     }
 }
