@@ -11,7 +11,7 @@ namespace Shaghaf.Core.Repositories.Contract
         Task<IEnumerable<T>> GetAllAsync();
         Task<T?> GetByIdWithSpecAsync(ISpecifications<T> spec);
         Task<IReadOnlyList<T>> GetAllWithSpecAsync(ISpecifications<T> spec);
-        Task<T?> GetEntityWithSpecAsync(ISpecifications<T> spec); // Add this method
+        Task<T?> GetEntityWithSpecAsync(ISpecifications<T> spec); 
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);

@@ -13,14 +13,11 @@ namespace Shaghaf.Core.Entities
         public string CustomerName { get; set; }
         public int SeatCount { get; set; }
 
-
-        // Payment-related fields
         public decimal Amount { get; set; }
         public string Currency { get; set; }
         public string SessionId { get; set; }
         public BookingStatus Status { get; set; }
 
-        // Discount-related fields
         public decimal Discount { get; set; }
     }
  

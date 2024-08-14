@@ -28,7 +28,7 @@ namespace Shaghaf.API.Controllers
 
             if (result is null)
             {
-                return BadRequest("Invalid Data !!");
+                return BadRequest("Invalid Data!!");
 
             }
             return Ok(result);
@@ -55,7 +55,7 @@ namespace Shaghaf.API.Controllers
             var result = await _cakeService.GetCakeDetailsAsync(cakeId);
 
             if (result is null)
-                return NotFound("Cake Not Found !!");
+                return NotFound("Cake Not Found!!");
 
             return Ok(result);
         }
@@ -67,7 +67,7 @@ namespace Shaghaf.API.Controllers
             var result = await _cakeService.GetAllCakesAsync();
 
             if (result.Count == 0)
-                return NotFound("There is no Cake !!");
+                return NotFound("There is no Cake!!");
 
 
             return Ok(result);

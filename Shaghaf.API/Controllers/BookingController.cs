@@ -110,7 +110,7 @@ public class BookingController : BaseApiController
         {
             // Check the payment status asynchronously using the payment service
             var status = await _paymentService.CheckPaymentStatusAsync(bookingId);
-            // Return the payment status of the booking
+            
             return Ok(new { status });
         }
         catch (Exception ex)
