@@ -13,7 +13,7 @@ namespace Shaghaf.Core.Entities.RoomEntities
         public int Seat { get; set; }
         public string Description { get; set; } = null!;
 
-
+        public string BookingPhoneNumber { get; set; } = null!;
 
 
         public int LocationId { get; set; }

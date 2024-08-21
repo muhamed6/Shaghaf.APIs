@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shaghaf.Application.Services;
@@ -10,7 +11,7 @@ using Talabat.APIs.Controllers;
 
 namespace Shaghaf.API.Controllers
 {
-
+    [Authorize]
     public class DecorationsController : BaseApiController
     {
         private readonly IDecorationService _decorationService;
@@ -22,7 +23,7 @@ namespace Shaghaf.API.Controllers
             _mapper = mapper;
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<DecorationDto?>> CreateDecoration([FromBody] DecorationDto decorationDto)
         {
@@ -37,7 +38,7 @@ namespace Shaghaf.API.Controllers
             return Ok(result);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost("decorationId")]
         public async Task<ActionResult<DecorationDto?>> UpdateDecoration(int decorationId, [FromBody] DecorationDto decorationDto)
         {
@@ -54,7 +55,7 @@ namespace Shaghaf.API.Controllers
 
 
         [HttpGet("{decorationId}")]
-        public async Task<ActionResult<Decoration?>> GetDecorationDetails(int decorationId)
+        public async Task<ActionResult<DecorationDto?>> GetDecorationDetails(int decorationId)
         {
 
             var result = await _decorationService.GetDecorationDetailsAsync(decorationId);
@@ -62,13 +63,13 @@ namespace Shaghaf.API.Controllers
             if (result is null)
                 return NotFound("Decoration Not Found!!");
 
-            return Ok(result);
+            return Ok(_mapper.Map<DecorationDto>(result));
         }
 
 
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Decoration>>> GetAllDecorations()
+        public async Task<ActionResult<IReadOnlyList<DecorationDto>>> GetAllDecorations()
         {
             var result = await _decorationService.GetAllDecorationsAsync();
 
@@ -79,7 +80,7 @@ namespace Shaghaf.API.Controllers
             return Ok(result);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteDecoration(int decorationId)
         {

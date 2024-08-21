@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shaghaf.Core.Dtos;
@@ -8,7 +9,7 @@ using Talabat.APIs.Controllers;
 
 namespace Shaghaf.API.Controllers
 {
-
+    [Authorize]
     public class CakesController : BaseApiController
     {
         private readonly ICakeService _cakeService;
@@ -20,6 +21,7 @@ namespace Shaghaf.API.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<CakeDto?>> CreateCake([FromBody] CakeDto cakeDto)
         {
@@ -34,6 +36,7 @@ namespace Shaghaf.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("cakeId")]
         public async Task<ActionResult<CakeDto?>> UpdateCake(int cakeId, [FromBody] CakeDto cakeDto)
         {
@@ -73,6 +76,7 @@ namespace Shaghaf.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCake(int cakeId)
         {

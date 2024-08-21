@@ -104,7 +104,7 @@ namespace Shaghaf.Service
                 birthday.Date = birthdayDto.Date;
                 birthday.Description = birthdayDto.Description;
                 birthday.Name = birthdayDto.Name ;
-
+                birthday.RoomId = birthdayDto.RoomId;
              
                 _unitOfWork.Repository<Birthday>().Update(birthday);
                 try

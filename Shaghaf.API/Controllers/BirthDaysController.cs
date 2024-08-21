@@ -1,25 +1,30 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shaghaf.Core.Dtos;
 using Shaghaf.Core.Entities.HomeEntities;
+using Shaghaf.Core.Entities.RoomEntities;
 using Shaghaf.Core.Services.Contract;
 using Talabat.APIs.Controllers;
 
 namespace Shaghaf.API.Controllers
 {
-    
+    [Authorize]
     public class BirthDaysController : BaseApiController
     {
         private readonly IBirthDayService _birthDayService;
-        
-        public BirthDaysController(IBirthDayService birthDayService
+        private readonly IMapper _mapper;
+
+        public BirthDaysController(IBirthDayService birthDayService,
+            IMapper mapper
          )
         {
             _birthDayService = birthDayService;
-        
+            _mapper = mapper;
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<BirthDayToCreateDto?>> CreateBirthday([FromBody] BirthDayToCreateDto birthdayDto)
         {
@@ -34,7 +39,8 @@ namespace Shaghaf.API.Controllers
             return Ok(result);
         }
 
-         [HttpPost("birthdayId")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("birthdayId")]
         public async Task<ActionResult<BirthDayToCreateDto?>> UpdateBirthday(int birthdayId, [FromBody] BirthDayToCreateDto birthdayDto)
         {
   
@@ -53,7 +59,7 @@ namespace Shaghaf.API.Controllers
 
 
         [HttpGet("{birthdayId}")]
-        public async Task<ActionResult<Birthday?>> GetBirthDayDetails(int birthdayId)
+        public async Task<ActionResult<BirthdayDto?>> GetBirthDayDetails(int birthdayId)
         {
       
             var result = await _birthDayService.GetBirthDayDetailsAsync(birthdayId);
@@ -61,12 +67,12 @@ namespace Shaghaf.API.Controllers
             if (result is null)
                 return NotFound("Birthday Not Found!!");
 
-            return Ok(result);
+            return Ok(_mapper.Map<BirthdayDto>(result));
         }
 
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Birthday>>> GetAllBirthDays()
+        public async Task<ActionResult<IReadOnlyList<BirthdayDto>>> GetAllBirthDays()
         {
             var result = await _birthDayService.GetAllBirthDaysAsync();
 
@@ -74,11 +80,11 @@ namespace Shaghaf.API.Controllers
                 return NotFound("There is no any BirthDay!!");
 
 
-            return Ok(result);
+            return Ok(_mapper.Map<IReadOnlyList<Birthday>, IReadOnlyList<BirthdayDto>>(result));
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteBirthDay(int birthdayId)
         {

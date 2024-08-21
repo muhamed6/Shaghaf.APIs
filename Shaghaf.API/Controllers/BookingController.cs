@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shaghaf.Core.Dtos;
 using Shaghaf.Core.Entities;
 using Shaghaf.Core.Services.Contract;
@@ -8,7 +9,7 @@ using System;
 using System.Threading.Tasks;
 using Talabat.APIs.Controllers;
 
-
+[Authorize]
 public class BookingController : BaseApiController
 {
     private readonly IBookingService _bookingService;
@@ -20,7 +21,7 @@ public class BookingController : BaseApiController
         _paymentService = paymentService;
     }
 
-  
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<BookingDto?>> CreateBooking([FromBody] BookingDto bookingDto)
     {
@@ -28,12 +29,13 @@ public class BookingController : BaseApiController
 
         if (result is null)
         {
-            return BadRequest("Invalid Data !!");
+            return BadRequest("Invalid Data!!");
 
         }
         return Ok(result);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("bookingId")]
     public async Task<ActionResult<BookingDto?>> UpdateBooking(int bookingId, [FromBody] BookingDto bookingDto)
     {
@@ -64,6 +66,7 @@ public class BookingController : BaseApiController
         return Ok(result);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete]
     public async Task<IActionResult> DeleteBooking(int id)
     {

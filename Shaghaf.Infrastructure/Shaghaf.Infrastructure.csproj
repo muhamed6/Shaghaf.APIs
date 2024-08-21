@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Shaghaf.Core\Shaghaf.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Identity\Migrations\" />
+  </ItemGroup>
+
 </Project>

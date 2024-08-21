@@ -46,7 +46,7 @@ namespace Shaghaf.Service
                 category.Name = categoryDto.Name;
                 try
                 {
-                    category.RoomCategories = categoryDto.SelectedCategories.Select(c => new RoomCategory { RoomId = c }).ToList();
+                    category.RoomCategories = categoryDto.SelectedRooms.Select(c => new RoomCategory { RoomId = c }).ToList();
                 }
                 catch (ArgumentException ex)
                 {
@@ -102,8 +102,6 @@ namespace Shaghaf.Service
 
             var Categories = await categoryRepo.GetAllWithSpecAsync(spec);
 
-            //var Categorieslist = Categories.ToList();
-
             return _mapper.Map<IReadOnlyList<CategoryToReturnDto>>(Categories);
         }
 
@@ -137,12 +135,12 @@ namespace Shaghaf.Service
 
                 try
                 {
-                    category.RoomCategories = categoryDto.SelectedCategories.Select(c => new RoomCategory { RoomId = c }).ToList();
+                    category.RoomCategories = categoryDto.SelectedRooms.Select(c => new RoomCategory { RoomId = c }).ToList();
 
 
                     // Handle RoomCategory updates
                     var currentRoomCategories = category.RoomCategories.ToList();
-                    var selectedCategories = categoryDto.SelectedCategories;
+                    var selectedCategories = categoryDto.SelectedRooms;
 
                     // Remove existing associations
                     foreach (var room in currentRoomCategories)

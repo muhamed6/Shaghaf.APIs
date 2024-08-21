@@ -32,7 +32,7 @@ namespace Shaghaf.Core.Dtos
 
         public decimal Price { get; set; }
 
-
+        public string BookingPhoneNumber { get; set; } = null!;
         public ICollection<RoomCategory> RoomCategories { get; set; } = new List<RoomCategory>();
     }
 }

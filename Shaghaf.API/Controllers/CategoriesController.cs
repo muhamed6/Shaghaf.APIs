@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shaghaf.Core.Dtos;
@@ -10,7 +11,7 @@ using Talabat.APIs.Controllers;
 
 namespace Shaghaf.API.Controllers
 {
-
+    [Authorize]
     public class CategoriesController : BaseApiController
     {
         private readonly ICategoryService _categoryService;
@@ -45,6 +46,7 @@ namespace Shaghaf.API.Controllers
             return Ok(category);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Category?>> CreateCategory(CategoryDto categoryDto)
         {
@@ -56,7 +58,7 @@ namespace Shaghaf.API.Controllers
             return Ok(category);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost("categoryId")]
         public async Task<ActionResult<Category?>> UpdateCategory(int categoryId, [FromBody] CategoryDto categoryDto)
         {
@@ -71,7 +73,7 @@ namespace Shaghaf.API.Controllers
             return Ok(result);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCategory(int categoryId)
         {

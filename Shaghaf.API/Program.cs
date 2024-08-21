@@ -17,12 +17,17 @@ using Stripe;
 using Shaghaf.API.Helpers;
 using Shaghaf.Infrastructure.Sevices.Implementaion;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Identity;
+using Shaghaf.Core.Entities.Identity;
+using Shaghaf.Infrastructure.Identity;
+using Shaghaf.Service.AuthService;
+using Shaghaf.API.Extensions;
 
 namespace Shaghaf.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +47,15 @@ namespace Shaghaf.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
+            builder.Services.AddDbContext<ApplicationIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+            });
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => { })
+            .AddEntityFrameworkStores<ApplicationIdentityDbContext>();
+
+
             builder.Services.AddDbContext<StoreContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -59,7 +73,7 @@ namespace Shaghaf.API
             builder.Services.AddScoped<IBirthDayService, BirthDayService>();
             builder.Services.AddScoped<IDecorationService, DecorationService>();
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
+            builder.Services.AddScoped(typeof(IAuthService), typeof(AuthService));
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             // Add Stripe configuration settings
@@ -84,7 +98,41 @@ namespace Shaghaf.API
                                .AllowAnyHeader();
                     });
             });
+
+
+            builder.Services.AddAuthServices(builder.Configuration);
+
+
             var app = builder.Build();
+
+            #region UpdateDataBaseWhenRun
+
+
+            using var scope = app.Services.CreateScope(); // lma a5ls hi3ml dispose ll scope w y2fl kol l objects eli atlbt mn scope
+            var services = scope.ServiceProvider;
+            //var _dbContext = services.GetRequiredService<StoreContext>();
+            var _identityDbContext = services.GetRequiredService<ApplicationIdentityDbContext>();
+            // ask CLR for Creating Object from DbContext Explicitly
+
+            var loggerFactory = services.GetRequiredService<ILoggerFactory>(); // to log error in kestrel
+            try
+            {
+
+                await _identityDbContext.Database.MigrateAsync(); 
+                
+                var _userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                var _roleManager = services.GetRequiredService<RoleManager<IdentityRole>>(); 
+                await ApplicationIdentityContextSeed.SeedUserAsync(_userManager, _roleManager); 
+            }
+            catch (Exception ex)
+            {
+                var logger = loggerFactory.CreateLogger<Program>();
+                logger.LogError(ex, "an error has been occured during apply the migration");
+            }
+
+            #endregion
+
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -97,7 +145,7 @@ namespace Shaghaf.API
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

@@ -30,8 +30,16 @@ namespace Shaghaf.Service
                 {
                     var cake = _mapper.Map<Cake>(cakeDto);
                     _unitOfWork.Repository<Cake>().Add(cake);
+                try
+                {
                     await _unitOfWork.CompleteAsync();
-                    return _mapper.Map<CakeDto>(cake);
+                }
+                catch (Exception ex)
+                {
+
+                    return null;
+                }
+                return _mapper.Map<CakeDto>(cake);
                 }
                 return null;
             

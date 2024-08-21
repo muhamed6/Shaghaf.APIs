@@ -43,13 +43,13 @@ namespace Shaghaf.Service
             _context = context;
         }
 
-        public async Task<RoomDto?> CreateRoomAsync(RoomToCreateOrUpdateDto model)
+        public async Task<RoomDto?> CreateRoomAsync(string phoneNumber, RoomToCreateOrUpdateDto model)
         {
             var room = new Room();
 
             if (model is not null)
             {
-
+                room.BookingPhoneNumber = phoneNumber;
                 room.Price = model.Price;
                 room.Date = model.Date;
                 room.LocationId = model.LocationId;
@@ -136,9 +136,15 @@ namespace Shaghaf.Service
             return room;
         }
 
-        
+        public async Task<IReadOnlyList<Room>> GetRoomsForUserAsync(string phoneNumber)
+        {
+            var roomRepo = _unitOfWork.Repository<Room>();
+            var spec = new RoomSpecs(phoneNumber);
+            var rooms = await roomRepo.GetAllWithSpecAsync(spec);
+            return rooms;
+        }
 
-        public async Task<RoomToCreateOrUpdateDto?> UpdateRoomAsync(int roomId, RoomToCreateOrUpdateDto roomDto)
+        public async Task<RoomToCreateOrUpdateDto?> UpdateRoomAsync(int roomId, string phoneNumber, RoomToCreateOrUpdateDto roomDto)
         {
             var room = _context.Rooms
                 .Include(g => g.RoomCategories)
@@ -150,6 +156,7 @@ namespace Shaghaf.Service
 
             if (roomDto is not null)
             {
+                room.BookingPhoneNumber = phoneNumber;
                 room.Date = roomDto.Date;
                 room.Name = roomDto.Description;
                 room.Offer = roomDto.Offer;

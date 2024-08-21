@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shaghaf.Core.Dtos;
@@ -9,7 +10,7 @@ using Talabat.APIs.Controllers;
 
 namespace Shaghaf.API.Controllers
 {
-    
+    [Authorize]
     public class LocationsController : BaseApiController
     {
         private readonly IMapper _mapper;
@@ -48,7 +49,7 @@ namespace Shaghaf.API.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Location?>> CreateLocation([FromBody] LocationDto locationDto)
         {
@@ -62,7 +63,7 @@ namespace Shaghaf.API.Controllers
             }
             return Ok(result);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost("locationId")]
         public async Task<ActionResult<Location?>> UpdateLocation(int locationId, [FromBody] LocationDto locationDto)
         {
@@ -78,7 +79,7 @@ namespace Shaghaf.API.Controllers
             }
             return Ok(result);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteLocation(int locationId)
         {

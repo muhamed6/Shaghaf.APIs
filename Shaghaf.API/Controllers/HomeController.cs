@@ -46,7 +46,7 @@ namespace Shaghaf.API.Controllers
         }
 
         [HttpGet("BirthDays")]
-        public async Task<ActionResult<IReadOnlyList<Birthday>>> GetAllBirthDays()
+        public async Task<ActionResult<IReadOnlyList<BirthdayDto>>> GetAllBirthDays()
         {
             var result = await _birthDayService.GetAllBirthDaysAsync();
 
@@ -54,7 +54,7 @@ namespace Shaghaf.API.Controllers
                 return NotFound("There is no any BirthDay!!");
 
 
-            return Ok(result);
+            return Ok(_mapper.Map<IReadOnlyList<Birthday>, IReadOnlyList<BirthdayDto>>(result));
         }
 
 
@@ -83,7 +83,7 @@ namespace Shaghaf.API.Controllers
         }
 
         [HttpGet("Decorations")]
-        public async Task<ActionResult<IReadOnlyList<Decoration>>> GetAllDecorations()
+        public async Task<ActionResult<IReadOnlyList<DecorationDto>>> GetAllDecorations()
         {
             var result = await _decorationService.GetAllDecorationsAsync();
 

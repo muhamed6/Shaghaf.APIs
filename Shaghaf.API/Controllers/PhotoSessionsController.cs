@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shaghaf.Core.Dtos;
@@ -9,7 +10,7 @@ using Talabat.APIs.Controllers;
 
 namespace Shaghaf.API.Controllers
 {
- 
+    [Authorize]
     public class PhotoSessionsController : BaseApiController
     {
         private readonly IPhotoSessionService _photoSessionService;
@@ -47,7 +48,7 @@ namespace Shaghaf.API.Controllers
             return Ok(_mapper.Map<IReadOnlyList<PhotoSessionDto>>(photoSessions));
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<PhotoSessionDto?>> CreatePhotoSession([FromBody] PhotoSessionDto photoSessionDto)
         {
@@ -62,6 +63,7 @@ namespace Shaghaf.API.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("photoSessionId")]
         public async Task<ActionResult<PhotoSessionDto?>> UpdatePhotoSession(int photoSessionId, [FromBody] PhotoSessionDto photoSessionDto)
         {
@@ -76,7 +78,7 @@ namespace Shaghaf.API.Controllers
             return Ok(result);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeletePhotoSession(int photoSessionId)
         {
