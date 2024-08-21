@@ -13,12 +13,10 @@ using Talabat.APIs.Controllers;
 public class BookingController : BaseApiController
 {
     private readonly IBookingService _bookingService;
-    private readonly IPaymentService _paymentService;
 
-    public BookingController(IBookingService bookingService, IPaymentService paymentService)
+    public BookingController(IBookingService bookingService)
     {
         _bookingService = bookingService;
-        _paymentService = paymentService;
     }
 
     [Authorize(Roles = "Admin")]
@@ -89,38 +87,7 @@ public class BookingController : BaseApiController
     }
 
    
-    [HttpPost("payment")]
-    public async Task<IActionResult> CreatePayment([FromBody] PaymentDto paymentDto)
-    {
-        try
-        {
-            
-            var session = await _paymentService.CreateCheckoutSession(paymentDto);
-            // Return the URL of the created payment session
-            return Ok(new { url = session.Url });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
-
-    // Endpoint to check the payment status of a specific booking by ID
-    [HttpGet("payment/check-status/{bookingId}")]
-    public async Task<IActionResult> GetPaymentStatus(int bookingId)
-    {
-        try
-        {
-            // Check the payment status asynchronously using the payment service
-            var status = await _paymentService.CheckPaymentStatusAsync(bookingId);
-            
-            return Ok(new { status });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
+   
   
 
 
