@@ -1,5 +1,5 @@
 ## Shaghaf Overview
-Shaghaf is a comprehensive application designed for booking and renting various rooms for multiple purposes such as training, meetings, social events, and birthday parties. The application provides user-friendly interfaces to display rooms, book them, manage memberships, and order additional services like food and photo sessions.
+Shaghaf is a comprehensive application designed for booking and renting various rooms for multiple purposes such as training, meetings, social events, and birthday parties. The application provides user-friendly interfaces to display rooms, book them, and order additional services like photo sessions.
 
 ## Technical Details
 Shaghaf API is a sophisticated .NET 7.0 Web API designed to facilitate the booking and rental of rooms for various events. Leveraging Onion Architecture for scalability and maintainability, it incorporates advanced features like data seeding, error handling, and filtration, alongside secure payment integration via Stripe.
